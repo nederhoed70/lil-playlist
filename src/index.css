@@ -27,13 +27,16 @@ select {
 }
 
 .song-header {
-	display: inline-flex;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(1, 1fr);
+	grid-column-gap: 5px;
+	grid-row-gap: 5px;
 	background-color: hsl(220, 90%, 61%);
 	width: 100%;
 }
 .song-row__item {
 	background-color: aqua;
-	width: 25%;
 	text-align: center;
 	letter-spacing: 0.2em;
 	/*	padding: 0.2em;
@@ -60,15 +63,26 @@ select {
 .list-item:nth-child(even) {
 	background-color: hsl(224, 78%, 86%);
 }
+
+.list-item {
+	padding: 0.2em;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(auto, 1fr);
+	grid-column-gap: 5px;
+	grid-row-gap: 5px;
+}
 .list-item span {
-	text-align: center;
+	/* text-align: center; */
 	letter-spacing: 0.2em;
 	padding: 0.2em;
 	margin: 0.2em;
 	flex-grow: 4;
+	text-align: left;
 }
-.list-item {
-	padding: 0.2em;
-	width: 100%;
-	display: inline-flex;
+.list-rating-item button {
+}
+.fa-trash-alt {
+	margin-left: 10em;
 }

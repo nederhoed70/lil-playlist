@@ -8,9 +8,6 @@ class SongForm extends Component {
 		genre: '',
 		rating: '3'
 	};
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
 		const handleChange = event => {
@@ -40,6 +37,7 @@ class SongForm extends Component {
 					placeholder='Song'
 					value={this.state.song}
 					onChange={handleChange}
+					required
 				/>
 				<input
 					type='text'
@@ -47,6 +45,7 @@ class SongForm extends Component {
 					placeholder='Artist'
 					value={this.state.artist}
 					onChange={handleChange}
+					required
 				/>
 				<input
 					type='text'
@@ -54,12 +53,14 @@ class SongForm extends Component {
 					placeholder='Genre'
 					value={this.state.genre}
 					onChange={handleChange}
+					required
 				/>
+
 				<label>Rating:</label>
 				<select name='rating' value={this.state.rating} onChange={handleChange}>
-					<option value='1'>3</option>
-					<option value='2'>1</option>
-					<option value='3'>2</option>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
 					<option value='4'>4</option>
 					<option value='5'>5</option>
 				</select>
