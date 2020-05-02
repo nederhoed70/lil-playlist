@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SongForm from './components/SongForm';
 import SongList from './components/SongList';
 import SongHeader from './components/SongHeader';
+import { apiUrl } from './components/apiUrl';
 import ApiConnect from './api/ApiConnect';
 
 class SongOverview extends Component {
@@ -16,42 +17,46 @@ class SongOverview extends Component {
 					artist: '',
 					genre: '',
 					rating: '',
-					loading: ''
-				}
-			]
+					loading: '',
+				},
+			],
 		};
 	}
 	componentDidMount() {
 		this.setState({ loading: true });
-		fetch('https://wincacademydatabase.firebaseio.com/jeroen/playlists.json')
-			.then(response => response.json())
-			.then(data => {
-				let songs = Object.keys(data).map(key => ({
-					hash: key,
-					id: data[key].id,
-					song: data[key].song,
-					artist: data[key].artist,
-					genre: data[key].genre,
-					rating: data[key].rating
-				}));
-				this.setState({ playList: this.state.playList.concat(songs) });
-				console.log(this.state);
-				console.log(this.state.playList.length);
-			});
+		const url = `${apiUrl}/jeroen/playlists.json`;
+		try {
+			fetch(url)
+				.then((response) => response.json())
+				.then((res) => {
+					let songs = Object.keys(res).map((key) => ({
+						hash: key,
+						id: res[key].id,
+						song: res[key].song,
+						artist: res[key].artist,
+						genre: res[key].genre,
+						rating: res[key].rating,
+					}));
+
+					this.setState({ playList: this.state.playList.concat(songs) });
+				});
+		} catch (error) {
+			alert(error);
+		}
 	}
 
 	render() {
-		const addSong = song => {
+		const addSong = (song) => {
 			const newId = this.state.playList.length;
 			song.id = newId.toString();
 			ApiConnect(JSON.stringify(song), 'post');
 			this.setState({ playList: this.state.playList.concat(song) });
 		};
-		const deleteSong = event => {
+		const deleteSong = (event) => {
 			event.preventDefault();
 			let hash = event.target.id;
 			let playListCurrent = this.state.playList;
-			let newState = playListCurrent.filter(song => song.hash !== hash);
+			let newState = playListCurrent.filter((song) => song.hash !== hash);
 			ApiConnect(hash, 'delete');
 			this.setState({ playList: newState });
 			console.log('index:', newState, hash, playListCurrent[1]);

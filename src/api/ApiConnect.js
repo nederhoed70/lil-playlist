@@ -1,23 +1,15 @@
-// import React from 'react';
+import { apiUrl } from '../components/apiUrl';
 
 const ApiConnect = async (data, method) => {
 	if (method === 'post') {
-		return fetch(
-			'https://wincacademydatabase.firebaseio.com/jeroen/playlists.json',
-			{
-				method: 'POST',
-				body: data
-			}
-		).then(response => response.json());
+		return fetch(`${apiUrl}/jeroen/playlists.json`, {
+			method: 'POST',
+			body: data,
+		}).then((response) => response.json());
 	} else if (method === 'delete' && data) {
-		return fetch(
-			'https://wincacademydatabase.firebaseio.com/jeroen/playlists/' +
-				data +
-				'.json',
-			{
-				method: 'DELETE'
-			}
-		).then(response => response.json());
+		return fetch(`${apiUrl}/jeroen/playlists/${data}.json`, {
+			method: 'DELETE',
+		}).then((response) => response.json());
 	}
 };
 
