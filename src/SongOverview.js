@@ -4,11 +4,14 @@ import SongList from './components/SongList';
 import SongHeader from './components/SongHeader';
 import { apiUrl } from './components/apiUrl';
 import ApiConnect from './api/ApiConnect';
+import { AwesomeButton } from 'react-awesome-button';
+import AwesomeButtonStyles from 'react-awesome-button/src/styles/styles.scss';
 
 class SongOverview extends Component {
 	constructor() {
 		super();
 		this.state = {
+			formStatus: 'closed',
 			playList: [
 				{
 					hash: '',
@@ -46,11 +49,17 @@ class SongOverview extends Component {
 	}
 
 	render() {
+		const toggleForm = () => {
+			this.state.formStatus === 'closed'
+				? this.setState({ formStatus: 'open' })
+				: this.setState({ formStatus: 'closed' });
+		};
 		const addSong = (song) => {
 			const newId = this.state.playList.length;
 			song.id = newId.toString();
 			ApiConnect(JSON.stringify(song), 'post');
 			this.setState({ playList: this.state.playList.concat(song) });
+			this.state.formStatus = 'closed';
 		};
 		const deleteSong = (event) => {
 			event.preventDefault();
@@ -59,19 +68,23 @@ class SongOverview extends Component {
 			let newState = playListCurrent.filter((song) => song.hash !== hash);
 			ApiConnect(hash, 'delete');
 			this.setState({ playList: newState });
-			console.log('index:', newState, hash, playListCurrent[1]);
 		};
 		return (
 			<div className={'song-overview'}>
 				<header>
-					<h1>Jeroen's AweSome SongList</h1>
+					<h1>React Lil' Playlist</h1>
 				</header>
-				<SongForm
-					addSong={addSong}
-					handleChangeSong={this.handleChangeSong}
-					handleChangeArtist={this.handleChangeArtist}
-				/>
-				<SongHeader />
+				<AwesomeButton type='primary' onPress={toggleForm}>
+					add song
+				</AwesomeButton>
+				<div className={`song-form-${this.state.formStatus}`}>
+					<SongForm
+						addSong={addSong}
+						handleChangeSong={this.handleChangeSong}
+						handleChangeArtist={this.handleChangeArtist}
+					/>
+				</div>
+
 				<SongList playList={this.state.playList} deleteSong={deleteSong} />
 			</div>
 		);

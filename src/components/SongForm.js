@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AwesomeButton } from 'react-awesome-button';
 
 class SongForm extends Component {
 	state = {
@@ -6,27 +7,26 @@ class SongForm extends Component {
 		song: '',
 		artist: '',
 		genre: '',
-		rating: '3'
+		rating: '3',
 	};
 
 	render() {
-		const handleChange = event => {
+		const handleChange = (event) => {
 			const { name, value } = event.target;
 			this.setState({
-				[name]: value
+				[name]: value,
 			});
 		};
 
-		const handleSubmit = event => {
+		const handleSubmit = (event) => {
 			event.preventDefault();
 			this.props.addSong(this.state);
-			console.log('clicked submit', this.state);
 			this.setState({
 				id: '',
 				song: '',
 				artist: '',
 				genre: '',
-				rating: '3'
+				rating: '3',
 			});
 		};
 		return (
@@ -56,7 +56,7 @@ class SongForm extends Component {
 					required
 				/>
 
-				<label>Rating:</label>
+				<label htmlFor='rating'>Rating:</label>
 				<select name='rating' value={this.state.rating} onChange={handleChange}>
 					<option value='1'>1</option>
 					<option value='2'>2</option>
@@ -64,7 +64,7 @@ class SongForm extends Component {
 					<option value='4'>4</option>
 					<option value='5'>5</option>
 				</select>
-				<button>submit song</button>
+				<AwesomeButton type='primary'>submit song</AwesomeButton>
 			</form>
 		);
 	}
