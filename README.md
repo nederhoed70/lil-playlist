@@ -20,5 +20,4 @@ Naast deze bovenstaande Core Functionaliteiten zijn jullie verplicht om 3 extra 
 - **3 PUNTEN** – **Firebase API:** Toevoegen van een end-point in de database om, de data op te slaan
 
 ## Design 🖌️
-
 Deze week ligt de focus 100% op React. Binnen React komt alle "logica" en functionaliteit uit het gebruik van JavaScript met praktijkvoorbeelden. CSS moet het **laatste** zijn waar je mee aan de slag gaat.
